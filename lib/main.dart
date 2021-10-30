@@ -13,12 +13,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'A Flutter Form',
       theme: ThemeData(
-
         primarySwatch: Colors.blue,
       ),
       home: const AppFormPage(),
     );
   }
 }
-
-
