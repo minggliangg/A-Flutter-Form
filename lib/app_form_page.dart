@@ -1,3 +1,4 @@
+import 'package:a_flutter_form/app_form_validators.dart';
 import 'package:flutter/material.dart';
 
 class AppFormPage extends StatefulWidget {
@@ -8,6 +9,13 @@ class AppFormPage extends StatefulWidget {
 }
 
 class _AppFormPageState extends State<AppFormPage> {
+  final listOfFood = <String>[
+    'Pizza',
+    'Bar Cho Mee',
+    'Naan',
+    'Nasi Goreng Pattaya',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +29,8 @@ class _AppFormPageState extends State<AppFormPage> {
               children: [
                 _FormFieldPadding(
                   child: TextFormField(
+                    validator: (name) => nameValidator(name),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: const InputDecoration(
                       label: Text('Name'),
                       hintText: 'James Tan',
@@ -29,24 +39,28 @@ class _AppFormPageState extends State<AppFormPage> {
                 ),
                 _FormFieldPadding(
                   child: TextFormField(
+                    validator: (ageString) => ageValidator(ageString),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: const InputDecoration(
                       label: Text('Age'),
                       hintText: '25',
                     ),
+                    keyboardType: TextInputType.number,
                   ),
                 ),
                 _FormFieldPadding(
                   child: DropdownButtonFormField<String>(
-                    items: const [
-                      DropdownMenuItem<String>(
-                        child: Text('Pasta'),
-                        value: 'Pasta',
-                      ),
-                      DropdownMenuItem<String>(
-                        child: Text('Pizza'),
-                        value: 'Pizza',
-                      ),
-                    ],
+                    validator: (favouriteFood) =>
+                        favouriteFoodValidator(favouriteFood),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    items: listOfFood
+                        .map(
+                          (foodItem) => DropdownMenuItem(
+                            child: Text(foodItem),
+                            value: foodItem,
+                          ),
+                        )
+                        .toList(growable: false),
                     decoration: const InputDecoration(
                       label: Text('Favourite Food'),
                     ),
@@ -54,22 +68,35 @@ class _AppFormPageState extends State<AppFormPage> {
                     isDense: true,
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    final currentForm = Form.of(context)!;
-                    String snackBarText;
-                    if (currentForm.validate()) {
-                      snackBarText = 'Validation successful';
-                    } else {
-                      snackBarText = 'Validation failed';
-                    }
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(snackBarText),
-                      ),
-                    );
-                  },
-                  child: const Text('Validate'),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        final currentForm = Form.of(context)!;
+                        String snackBarText;
+                        if (currentForm.validate()) {
+                          snackBarText = 'Validation successful';
+                        } else {
+                          snackBarText = 'Validation failed';
+                        }
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(snackBarText),
+                          ),
+                        );
+                      },
+                      child: const Text('Validate'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        final currentForm = Form.of(context)!;
+                        currentForm.reset();
+                      },
+                      child: const Text('Reset'),
+                    ),
+                  ],
                 ),
               ],
             );
