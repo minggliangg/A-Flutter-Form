@@ -1,4 +1,6 @@
 import 'package:a_flutter_form/app_form_validators.dart';
+import 'package:a_flutter_form/app_review_page.dart';
+import 'package:a_flutter_form/user_entity.dart';
 import 'package:flutter/material.dart';
 
 class AppFormPage extends StatefulWidget {
@@ -15,6 +17,7 @@ class _AppFormPageState extends State<AppFormPage> {
     'Naan',
     'Nasi Goreng Pattaya',
   ];
+  UserEntity appUser = const UserEntity();
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +38,9 @@ class _AppFormPageState extends State<AppFormPage> {
                       label: Text('Name'),
                       hintText: 'James Tan',
                     ),
+                    onChanged: (name) {
+                      appUser = appUser.copyWith(name: name);
+                    },
                   ),
                 ),
                 _FormFieldPadding(
@@ -45,6 +51,9 @@ class _AppFormPageState extends State<AppFormPage> {
                       label: Text('Age'),
                       hintText: '25',
                     ),
+                    onChanged: (age) {
+                      appUser = appUser.copyWith(age: int.tryParse(age));
+                    },
                     keyboardType: TextInputType.number,
                   ),
                 ),
@@ -64,7 +73,9 @@ class _AppFormPageState extends State<AppFormPage> {
                     decoration: const InputDecoration(
                       label: Text('Favourite Food'),
                     ),
-                    onChanged: (newValue) {},
+                    onChanged: (favouriteFood) {
+                      appUser = appUser.copyWith(favouriteFood: favouriteFood);
+                    },
                     isDense: true,
                   ),
                 ),
@@ -78,6 +89,13 @@ class _AppFormPageState extends State<AppFormPage> {
                         String snackBarText;
                         if (currentForm.validate()) {
                           snackBarText = 'Validation successful';
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AppReviewPage(
+                                      appUser: appUser,
+                                    )),
+                          );
                         } else {
                           snackBarText = 'Validation failed';
                         }
@@ -93,6 +111,7 @@ class _AppFormPageState extends State<AppFormPage> {
                       onPressed: () {
                         final currentForm = Form.of(context)!;
                         currentForm.reset();
+                        appUser = const UserEntity();
                       },
                       child: const Text('Reset'),
                     ),
