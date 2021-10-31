@@ -1,6 +1,6 @@
-import 'package:a_flutter_form/app_form_validators.dart';
-import 'package:a_flutter_form/app_review_page.dart';
-import 'package:a_flutter_form/user_entity.dart';
+import 'package:a_flutter_form/entity/user_entity.dart';
+import 'package:a_flutter_form/route/app_review_page.dart';
+import 'package:a_flutter_form/utility/app_form_validators.dart';
 import 'package:flutter/material.dart';
 
 class AppFormPage extends StatefulWidget {
@@ -23,7 +23,7 @@ class _AppFormPageState extends State<AppFormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('A Flutter Form'),
+        title: const Text('The form'),
       ),
       body: SafeArea(
         child: Form(
@@ -32,7 +32,7 @@ class _AppFormPageState extends State<AppFormPage> {
               children: [
                 _FormFieldPadding(
                   child: TextFormField(
-                    validator: (name) => nameValidator(name),
+                    validator: (name) => AppValidators.nameValidator(name),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: const InputDecoration(
                       label: Text('Name'),
@@ -45,7 +45,8 @@ class _AppFormPageState extends State<AppFormPage> {
                 ),
                 _FormFieldPadding(
                   child: TextFormField(
-                    validator: (ageString) => ageValidator(ageString),
+                    validator: (ageString) =>
+                        AppValidators.ageValidator(ageString),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: const InputDecoration(
                       label: Text('Age'),
@@ -60,7 +61,7 @@ class _AppFormPageState extends State<AppFormPage> {
                 _FormFieldPadding(
                   child: DropdownButtonFormField<String>(
                     validator: (favouriteFood) =>
-                        favouriteFoodValidator(favouriteFood),
+                        AppValidators.favouriteFoodValidator(favouriteFood),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     items: listOfFood
                         .map(

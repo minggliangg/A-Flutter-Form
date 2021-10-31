@@ -1,4 +1,4 @@
-import 'package:a_flutter_form/user_entity.dart';
+import 'package:a_flutter_form/entity/user_entity.dart';
 import 'package:flutter/material.dart';
 
 class AppReviewPage extends StatelessWidget {
@@ -13,7 +13,7 @@ class AppReviewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Review Page'),
+        title: const Text('The review'),
       ),
       body: SafeArea(
         child: Column(
