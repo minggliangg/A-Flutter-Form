@@ -32,6 +32,7 @@ class _AppFormPageState extends State<AppFormPage> {
                 _FormFieldPadding(
                   child: TextFormField(
                     validator: (name) => AppValidators.nameValidator(name),
+                    autocorrect: false,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: const InputDecoration(
                       label: Text('Name'),

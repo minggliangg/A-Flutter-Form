@@ -1,5 +1,7 @@
 import 'package:a_flutter_form/entity/user_entity.dart';
+import 'package:a_flutter_form/provider/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AppReviewPage extends StatelessWidget {
   const AppReviewPage({
@@ -28,9 +30,24 @@ class AppReviewPage extends StatelessWidget {
               label: 'Favourite food',
               value: appUser.favouriteFood,
             ),
-            ElevatedButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Back'),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Provider.of<UserProvider>(context, listen: false)
+                        .updateUser(appUser);
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/profile', ModalRoute.withName('/'));
+                  },
+                  child: const Text('Submit'),
+                ),
+                ElevatedButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Back'),
+                ),
+              ],
             ),
           ],
         ),
