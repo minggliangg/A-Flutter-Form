@@ -1,5 +1,3 @@
-import 'package:a_flutter_form/route/app_form_page.dart';
-import 'package:a_flutter_form/route/app_profile_page.dart';
 import 'package:flutter/material.dart';
 
 class AppHomePage extends StatelessWidget {
@@ -18,20 +16,16 @@ class AppHomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
-                onPressed: () => Navigator.push(
+                onPressed: () => Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => const AppFormPage(),
-                  ),
+                  '/form',
                 ),
                 child: const Text('Form'),
               ),
               ElevatedButton(
-                onPressed: () => Navigator.push(
+                onPressed: () => Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => const AppProfilePage(),
-                  ),
+                  '/profile',
                 ),
                 child: const Text('Profile'),
               ),

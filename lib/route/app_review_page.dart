@@ -4,13 +4,11 @@ import 'package:flutter/material.dart';
 class AppReviewPage extends StatelessWidget {
   const AppReviewPage({
     Key? key,
-    required this.appUser,
   }) : super(key: key);
-
-  final UserEntity appUser;
 
   @override
   Widget build(BuildContext context) {
+    final appUser = ModalRoute.of(context)!.settings.arguments as UserEntity;
     return Scaffold(
       appBar: AppBar(
         title: const Text('The review'),

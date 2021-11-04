@@ -1,5 +1,4 @@
 import 'package:a_flutter_form/entity/user_entity.dart';
-import 'package:a_flutter_form/route/app_review_page.dart';
 import 'package:a_flutter_form/utility/app_form_validators.dart';
 import 'package:flutter/material.dart';
 
@@ -90,12 +89,10 @@ class _AppFormPageState extends State<AppFormPage> {
                         String snackBarText;
                         if (currentForm.validate()) {
                           snackBarText = 'Validation successful';
-                          Navigator.push(
+                          Navigator.pushNamed(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => AppReviewPage(
-                                      appUser: appUser,
-                                    )),
+                            '/review',
+                            arguments: appUser,
                           );
                         } else {
                           snackBarText = 'Validation failed';
